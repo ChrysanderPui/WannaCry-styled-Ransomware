@@ -463,7 +463,7 @@ LRESULT CALLBACK RansomWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
             Rectangle(hdc, boxRect.left, boxRect.top, boxRect.right, boxRect.bottom);
             DeleteObject(hPen);
             
-            y_box = y + 15;
+            int y_box = y + 15;
             
             SetTextColor(hdc, RGB(0xFF, 0xFF, 0x00));  // Yellow
             
