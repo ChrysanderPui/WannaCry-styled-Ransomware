@@ -20,6 +20,8 @@ jobs:
             -static -fno-stack-protector
       - name: Upload EXE
         uses: actions/upload-artifact@v4
+      - name: Debug: List files
+        run: ls -la
         with:
           name: wannacry-payload
           path: wannacry.exe   
