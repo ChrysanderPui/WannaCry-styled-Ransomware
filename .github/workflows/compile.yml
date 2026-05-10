@@ -9,8 +9,6 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
-      - name: Debug: List files
-        run: ls -la
       - name: Install cross-compiler
         run: sudo apt update && sudo apt install mingw-w64 -y
       - name: Compile
