@@ -6,7 +6,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Opt-in to Node.js 24 runtime to address deprecation warning
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +19,6 @@ jobs:
             -static -fno-stack-protector
       - name: Upload EXE
         uses: actions/upload-artifact@v4
-      - name: Debug: List files
-        run: ls -la
         with:
           name: wannacry-payload
           path: wannacry.exe   
